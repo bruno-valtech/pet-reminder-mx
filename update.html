@@ -25,26 +25,26 @@ SET @notification_type = RequestParameter("reminderType")
 SET @mobile_phone = RequestParameter("mobile_phone")
 
 UpdateData(
-"MX_ProductReminders",
-1,
-"reminder_id",
-@reminder_id,
-"first_name",
-RequestParameter("first_name"),
-"last_name",
-RequestParameter("last_name"),
-"EmailAddress",
-RequestParameter("EmailAddress"),
-"product_name",
-RequestParameter("product"),
-"pet_name",
-RequestParameter("pet_name"),
-"next_reminder_date",
-RequestParameter("next_reminder_date"),
-"notification_type",
-RequestParameter("reminderType"),
-"mobile_phone",
-RequestParameter("mobile_phone")
+  "MX_ProductReminders",
+  1,
+  "reminder_id",
+  @reminder_id,
+  "first_name",
+  RequestParameter("first_name"),
+  "last_name",
+  RequestParameter("last_name"),
+  "EmailAddress",
+  RequestParameter("EmailAddress"),
+  "product_name",
+  RequestParameter("product"),
+  "pet_name",
+  RequestParameter("pet_name"),
+  "next_reminder_date",
+  RequestParameter("next_reminder_date"),
+  "notification_type",
+  RequestParameter("reminderType"),
+  "mobile_phone",
+  RequestParameter("mobile_phone")
 )
 
 IIF((QueryParameter("updated") == "true"), RequestParameter('PAGEURL'), Redirect(concat(RequestParameter('PAGEURL'), "&updated=true")))
@@ -558,7 +558,7 @@ ENDIF
 </style>
 
 <!-- Form -->
-<h1 style="color:#ff6200;font-family:Arial, Helvetica, sans-serif;-webkit-font-smoothing:antialiased;font-size:24px !important;mso-line-height-rule:exactly;line-height:32px;letter-spacing:0.06em;padding:0px;margin:20px 0px 20px 0px;font-weight:bold;text-align:center;">Actualiza tu recordatorio</h1>
+<h1 style="color:#ff6200;font-family:Arial, Helvetica, sans-serif;-webkit-font-smoothing:antialiased;font-size:24px !important;line-height:32px;letter-spacing:0.06em;padding:0px;margin:20px 0px 20px 0px;font-weight:bold;text-align:center;">Actualiza tu recordatorio</h1>
 <div style="max-width:500px; margin:50px auto;">
   <form class="updateReminderForm" action="%%=RequestParameter('PAGEURL')=%%" method="post">
     <label>Primer nombre</label><input type="text" name="first_name" value="%%=v(@first_name)=%%">
@@ -566,7 +566,7 @@ ENDIF
     <label>Email</label><input type="email" name="EmailAddress" value="%%=v(@EmailAddress)=%%">
     <label>Teléfono</label><input type="tel" name="mobile_phone" value="%%=v(@mobile_phone)=%%">
     <label>Nombre del producto</label>
-    <select id="product" name="product">
+    <!-- <select id="product" name="product">
       <option %%=IIF(@product_name=="Apoquel" , "selected" , "" )=%% value="Apoquel">Apoquel
       </option>
       <option %%=IIF(@product_name=="Simparica" , "selected" , "" )=%% value="Simparica">Simparica
@@ -575,7 +575,17 @@ ENDIF
       </option>
       <option %%=IIF(@product_name=="Revolution Plus" , "selected" , "" )=%% value="Revolution Plus">Revolution Plus
       </option>
-    </select>
+    </select> -->
+    <span>
+      <input type="checkbox" id="product" name="product" value="Apoquel" checked>
+      <label for="product">Apoquel</label><br>
+      <input type="checkbox" id="product" name="product" value="Simparica">
+      <label for="product">Simparica</label><br>
+      <input type="checkbox" id="product" name="product" value="Simparica TRIO">
+      <label for="product">Simparica TRIO</label><br>
+      <input type="checkbox" id="product" name="product" value="Revolution Plus">
+      <label for="product">Revolution Plus</label><br>
+    </span>
     <label>Nombre de mascota</label><input type="text" name="pet_name" value="%%=v(@pet_name)=%%">
     <label>Fecha para recibir el primer recordatorio</label><input name="next_reminder_date" type="date" value="%%=FormatDate(v(@next_reminder_date), "yyyy-mm-dd")=%%">
     <label>Recuérdame a través de:</label>
