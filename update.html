@@ -579,7 +579,7 @@ ENDIF
     <div>
       <input type="checkbox" id="Apoquel" name="product" value="Apoquel" %%=IIF(IndexOf(@product_name,"Apoquel") > 0, "checked", "")=%%>
       <label for="Apoquel">Apoquel</label><br>
-      <input type="checkbox" id="Simparica" name="product" value="Simparica" %%=IIF(IndexOf(@product_name,"Simparica") > 0, "checked", "")=%%>
+      <input type="checkbox" id="Simparica" name="product" value="Simparica" %%=IIF((indexOf(@product_name,'Simparica') > 0 AND indexOf(@product_name,'TRIO') == 0) OR (indexOf(@product_name,'Simparica,') > 0 AND indexOf(@product_name,'TRIO') > 0), "checked", "")=%%>
       <label for="Simparica">Simparica</label><br>
       <input type="checkbox" id="Simparica TRIO" name="product" value="Simparica TRIO" %%=IIF(IndexOf(@product_name,"Simparica TRIO") > 0, "checked", "")=%%>
       <label for="Simparica TRIO">Simparica TRIO</label><br>
