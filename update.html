@@ -1,0 +1,613 @@
+%%[
+SET @Reminder_DE = "MX_ProductReminders"
+SET @reminder_id = RequestParameter('id')
+SET @language = FIELD(ROW(LookupRows(@Reminder_DE,"reminder_id",@reminder_id),1), "language")
+SET @rowset = LookupRows("MX_ProductReminders", "reminder_id", @reminder_id)
+SET @row = Row(@rowset, 1)
+SET @first_name = Field(@row, "first_name")
+SET @last_name = Field(@row, "last_name")
+SET @EmailAddress = Field(@row, "EmailAddress")
+SET @product_name = Field(@row, "product_name")
+SET @pet_name = Field(@row, "pet_name")
+SET @next_reminder_date = Field(@row, "next_reminder_date")
+SET @notification_type = Field(@row, "notification_type")
+SET @mobile_phone = Field(@row, "mobile_phone")
+
+IF RequestParameter("submitted") == "submitted" then
+
+SET @first_name = RequestParameter("first_name")
+SET @last_name = RequestParameter("last_name")
+SET @EmailAddress = RequestParameter("EmailAddress")
+SET @product_name = RequestParameter("product")
+SET @pet_name = RequestParameter("pet_name")
+SET @next_reminder_date = RequestParameter("next_reminder_date")
+SET @notification_type = RequestParameter("reminderType")
+SET @mobile_phone = RequestParameter("mobile_phone")
+
+UpdateData(
+"MX_ProductReminders",
+1,
+"reminder_id",
+@reminder_id,
+"first_name",
+RequestParameter("first_name"),
+"last_name",
+RequestParameter("last_name"),
+"EmailAddress",
+RequestParameter("EmailAddress"),
+"product_name",
+RequestParameter("product"),
+"pet_name",
+RequestParameter("pet_name"),
+"next_reminder_date",
+RequestParameter("next_reminder_date"),
+"notification_type",
+RequestParameter("reminderType"),
+"mobile_phone",
+RequestParameter("mobile_phone")
+)
+
+IIF((QueryParameter("updated") == "true"), RequestParameter('PAGEURL'), Redirect(concat(RequestParameter('PAGEURL'), "&updated=true")))
+
+ENDIF
+
+]%%
+
+<!-- Zoetis Style Sheet - Do Not Delete -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+<style>
+  hr {
+    border-top: 1px solid cornflowerblue;
+  }
+
+  body {
+    color: #585858;
+    font-family: ArialMT, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+
+  .container-fluid {
+    max-width: 1280px;
+  }
+
+  .cta {
+    background-color: #FF6400;
+    border: none;
+    border-radius: 0;
+    color: #ffffff;
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    padding: 12px 19px;
+    text-align: center;
+    min-width: 180px;
+  }
+
+  .cta:hover {
+    background-color: #FF6400;
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  .emphasis-area {
+    background-color: #FF6400;
+    color: #ffffff;
+    font-family: Arial;
+    padding: 100px 1rem;
+  }
+
+  .emphasis-area .cta {
+    background-color: #000000;
+  }
+
+  .emphasis-area .cta:hover {
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  .emphasis-area h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.12px;
+    margin-bottom: 20px
+  }
+
+  .follow-us i {
+    color: #FF6400;
+    font-size: 26px;
+    line-height: 61px;
+  }
+
+  .follow-us .icon {
+    background-color: #F0F0F0;
+    height: 61px;
+    width: 61px;
+  }
+
+  .footer a {
+    border-left: 1px solid #979797;
+    color: #FF6400;
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+
+  .footer a:first-of-type {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .footer a:hover {
+    color: #FF6400;
+    text-decoration: none;
+  }
+
+  .footer p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .footer-logo {
+    background-color: #ff6400;
+    padding: 20px 1rem;
+  }
+
+  .form-control {
+    padding: 1.75rem .75rem;
+  }
+
+  .forms .form {
+    background-color: #F0F0F0;
+    padding: 2rem;
+  }
+
+  .forms img {
+    width: 100%;
+  }
+
+  .forms .text {
+    border: 1px solid #E4E4E4;
+    padding: 2rem;
+  }
+
+  h1 {
+    font-family: Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.12px;
+    line-height: 36px;
+  }
+
+  h2 {
+    color: #000000;
+    font-family: Arial, sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 28px;
+  }
+
+  h3 {
+    color: #000000;
+    font-family: Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 26px;
+  }
+
+  h4 {
+    color: #000000;
+    font-family: Arial;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 26px;
+  }
+
+  h5 {
+    color: #585858;
+    font-family: ArialMT, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+
+  .header {
+    background-color: #FF6400;
+    padding: 10px;
+  }
+
+  .header-logo-links a {
+    margin-left: 1rem;
+  }
+
+  .header-mobile-links {
+    padding: 10px 20px;
+  }
+
+  .header a {
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  .header a:hover {
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  .header-mobile-links a {
+    margin-left: 50px;
+  }
+
+  .header-spacer {
+    background-color: #FF6400;
+    color: #ffffff;
+    font-family: ArialMT, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    padding: 22px;
+  }
+
+  .hero {
+    background-color: #FF6400;
+    background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    background: url("https://picsum.photos/id/61/1280/400") no-repeat center center;
+    padding-bottom: 92px;
+    padding-top: 93px;
+    position: relative;
+  }
+
+  .hero .cta {
+    background-color: #000000;
+  }
+
+  .hero h1,
+  .hero h5 {
+    color: #FFFFFF;
+  }
+
+  .large-image img {
+    margin-bottom: 1rem;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  .one-pic-block img {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  .quote {
+    background-color: #F0F0F0;
+    padding: 50px 1rem;
+    font-family: ArialMT, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+
+  .quote img {
+    margin-bottom: .75rem;
+  }
+
+  .quote h3 {
+    color: #000000;
+    font-family: Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 26px;
+  }
+
+  .quote h6 {
+    color: #000000;
+    font-family: ArialMT, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+  }
+
+  .spacer {
+    background-color: #ff6400;
+    height: 8px;
+    min-height: 8px;
+    max-width: 940px !important;
+  }
+
+  .thin-spacer {
+    background-color: #ff6400;
+    height: 3px;
+    min-height: 3px;
+    max-width: 940px !important;
+  }
+
+  .speaker {
+    padding: 2rem 0;
+    max-width: 940px;
+  }
+
+  .speakers {
+    line-height: 22px;
+  }
+
+  .speakers img {
+    margin-bottom: .75rem;
+  }
+
+  .three-cols .text {
+    background-color: #FF6400;
+    color: #FFFFFF;
+    padding: 1rem;
+  }
+
+  .three-cols h3 {
+    color: #FFFFFF;
+  }
+
+  .three-cols img {
+    width: 100%;
+  }
+
+  .two-col-form #form-heading {
+    margin-bottom: 2rem;
+  }
+
+  .two-col-form {
+    background-color: #F0F0F0;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+    max-width: 940px;
+  }
+
+  .two-col-form button {
+    margin-top: 1rem;
+  }
+
+  .two-color .orange {
+    background-color: #FF6400;
+    color: #FFFFFF;
+    padding: 3rem 2rem;
+  }
+
+  .two-color .orange .cta {
+    background-color: #000000;
+  }
+
+  .two-color .orange {
+    color: #FFFFFF;
+    font-family: ArialMT, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 26px;
+  }
+
+  .two-color .white {
+    font-family: ArialMT, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 26px;
+    padding: 3rem 2rem;
+  }
+
+  .two-color .white h1 {
+    color: #000000;
+  }
+
+  .two-pic-block img {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  @media (min-width: 1200px) {
+    .container {
+      max-width: 970px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .mobile-margin {
+      margin-top: 1rem;
+    }
+
+    .speaker {
+      max-width: inherit !important;
+    }
+  }
+
+  @media (max-width: 834px) {
+    .header-logo-links a {
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .center-on-mobile {
+      text-align: center !important;
+    }
+
+    .follow-us i {
+      font-size: 17px;
+      line-height: 44px;
+    }
+
+    .follow-us .icon {
+      height: 44px;
+      width: 44px;
+    }
+
+    .header-logo img {
+      width: 91px;
+    }
+
+    .hide-on-mobile {
+      display: none !important;
+    }
+
+    .mobile-only {
+      display: inherit;
+    }
+
+    .product-logo img {
+      width: 90%;
+    }
+
+    .speaker {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .speaker img {
+      margin-bottom: 1rem;
+    }
+
+    .three-cols .text {
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .speaker img {
+      width: 103px;
+    }
+  }
+
+  @media (max-width: 375px) {
+    .footer a {
+      font-size: 12px;
+    }
+
+    .header-mobile-links a {
+      font-size: .7rem;
+    }
+
+    .hero {
+      padding-bottom: 45px !important;
+      padding-top: 45px !important;
+    }
+  }
+
+  /* FORM */
+
+  .updateReminderForm input:not([type="submit"]),
+  .updateReminderForm select {
+    margin-bottom: 10px;
+  }
+
+  .updateReminderForm input[type="submit"] {
+    margin-top: 10px;
+    color: #FFFFFF;
+    line-height: normal;
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    height: 40px;
+    background: #000;
+    font-size: 14px;
+    transition: .3s;
+  }
+
+  .updateReminderForm input[type="submit"]:hover {
+    background: #FF6400;
+    transition: .3s;
+  }
+
+  .updateReminderForm label {
+    color: #777;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: inherit;
+    margin-bottom: 2px;
+    vertical-align: middle;
+    font-weight: 600;
+  }
+
+  .updateReminderForm input[type="text"],
+  .updateReminderForm input[type="email"],
+  .updateReminderForm input[type="number"],
+  .updateReminderForm input[type="date"],
+  .updateReminderForm input[type="tel"],
+  .updateReminderForm select {
+    width: 100%;
+    height: 40px;
+    border: thin solid #ccc;
+    outline: none;
+    border-radius: 0;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .updateReminderForm input[type="radio"],
+  .updateReminderForm input[type="checkbox"] {
+    margin: 0 0.4em 3px 0;
+    vertical-align: middle;
+  }
+</style>
+
+<!-- Form -->
+<h1 style="color:#ff6200;font-family:Arial, Helvetica, sans-serif;-webkit-font-smoothing:antialiased;font-size:24px !important;mso-line-height-rule:exactly;line-height:32px;letter-spacing:0.06em;padding:0px;margin:20px 0px 20px 0px;font-weight:bold;text-align:center;">
+  Actualiza tu recordatorio</h1>
+<div style="max-width:500px; margin:50px auto;">
+  <form class="updateReminderForm" action="%%=RequestParameter('PAGEURL')=%%" method="post">
+    <label>Primer nombre</label><input type="text" name="first_name" value="%%=v(@first_name)=%%">
+    <label>Apellido</label><input type="text" name="last_name" value="%%=v(@last_name)=%%">
+    <label>Email</label><input type="email" name="EmailAddress" value="%%=v(@EmailAddress)=%%">
+    <label>Teléfono</label><input type="tel" name="mobile_phone" value="%%=v(@mobile_phone)=%%">
+    <label>Nombre del producto</label>
+    <select id="product" name="product">
+      <option %%=IIF(@product_name=="Apoquel" , "selected" , "" )=%% value="Apoquel">Apoquel
+      </option>
+      <option %%=IIF(@product_name=="Simparica" , "selected" , "" )=%% value="Simparica">Simparica
+      </option>
+      <option %%=IIF(@product_name=="Simparica TRIO" , "selected" , "" )=%% value="Simparica TRIO">Simparica TRIO
+      </option>
+      <option %%=IIF(@product_name=="Revolution Plus" , "selected" , "" )=%% value="Revolution Plus">Revolution Plus
+      </option>
+    </select>
+    <label>Nombre de mascota</label><input type="text" name="pet_name" value="%%=v(@pet_name)=%%">
+    <label>Fecha para recibir el primer recordatorio</label><input name="next_reminder_date" type="date" value="%%=FormatDate(v(@next_reminder_date), "yyyy-mm-dd")=%%">
+    <label>Recuérdame a través de:</label>
+    <div>
+      <input %%=IIF(@notification_type=="Email" , "checked" , "" )=%% id="Email" name="reminderType" type="radio" value="Email"><label for="Email">Email</label>
+    </div>
+    <div>
+      <input %%=IIF(@notification_type=="SMS" , "checked" , "" )=%% id="SMS" name="reminderType" type="radio" value="SMS"><label for="SMS">Texto/SMS</label>
+    </div>
+    <div>
+      <input %%=IIF(@notification_type=="Both" , "checked" , "" )=%% id="Both" name="reminderType" type="radio" value="Both"><label for="Both">Ambos</label>
+    </div>
+    <input id="submitted" name="submitted" type="hidden" value="submitted">
+    <div>
+      <input name="submit" type="submit" value="Enviar">
+    </div>
+    %%=IIF((QueryParameter("updated") == "true"), "<p style='background: #2dc653; color: #fff; padding: 10px; margin-top: 10px; text-align: center;'>&check; Tu recordatorio fue actualizado.</p>", "")=%%
+  </form>
+</div>
+
+<!-- Footer -->
+<section class="container-fluid" style="padding-top: 11px; border-top: 2px solid #FF6200;">
+  <div class="container footer">
+    <div class="row">
+      <div class="col">
+        <p>
+          <a href="https://www2.zoetis.mx/pie-de-pagina/politica-de-privacidad" target="_blank">Politica de
+            privacidad</a> <a href="https://www2.zoetis.mx/pie-de-pagina/condiciones-de-uso" target="_blank">Condiciones
+            de uso</a>
+        </p>
+        <p>&copy; Copyright, 2013-%%xtyear%% Zoetis MX.</p>
+      </div>
+    </div>
+  </div></section>
