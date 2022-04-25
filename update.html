@@ -576,16 +576,16 @@ ENDIF
       <option %%=IIF(@product_name=="Revolution Plus" , "selected" , "" )=%% value="Revolution Plus">Revolution Plus
       </option>
     </select> -->
-    <span>
-      <input type="checkbox" id="product" name="product" value="Apoquel" checked>
+    <div>
+      <input type="checkbox" id="product" name="product" value="Apoquel" %%=IIF(IndexOf(@product_name,"Apoquel") > 0, "checked", "")=%%>
       <label for="product">Apoquel</label><br>
-      <input type="checkbox" id="product" name="product" value="Simparica">
+      <input type="checkbox" id="product" name="product" value="Simparica" %%=IIF(IndexOf(@product_name,"Simparica") > 0, "checked", "")=%%>
       <label for="product">Simparica</label><br>
-      <input type="checkbox" id="product" name="product" value="Simparica TRIO">
+      <input type="checkbox" id="product" name="product" value="Simparica TRIO" %%=IIF(IndexOf(@product_name,"Simparica TRIO") > 0, "checked", "")=%%>
       <label for="product">Simparica TRIO</label><br>
-      <input type="checkbox" id="product" name="product" value="Revolution Plus">
+      <input type="checkbox" id="product" name="product" value="Revolution Plus" %%=IIF(IndexOf(@product_name,"Revolution Plus") > 0, "checked", "")=%%>
       <label for="product">Revolution Plus</label><br>
-    </span>
+    </div>
     <label>Nombre de mascota</label><input type="text" name="pet_name" value="%%=v(@pet_name)=%%">
     <label>Fecha para recibir el primer recordatorio</label><input name="next_reminder_date" type="date" value="%%=FormatDate(v(@next_reminder_date), "yyyy-mm-dd")=%%">
     <label>Recuérdame a través de:</label>
